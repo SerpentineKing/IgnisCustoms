@@ -30,7 +30,7 @@ function s.initial_effect(c)
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
-	e2:SetCountLimit(1,(id+0))
+	e2:SetCountLimit(1,{id,0})
 	e2:SetCondition(s.e2con)
 	e2:SetCost(s.e2cst)
 	e2:SetTarget(s.e2tgt)
@@ -38,7 +38,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.e1con(e,tp)
-	return Duel.GetFieldGroupCount(tp,LOCATION_REMOVED,LOCATION_REMOVED)>0
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
+	and Duel.GetFieldGroupCount(tp,LOCATION_REMOVED,LOCATION_REMOVED)>0
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
